@@ -1,0 +1,48 @@
+package core
+
+import (
+	"fmt"
+
+	"github.com/xuri/excelize/v2"
+)
+
+// [
+//     {
+//         "编号": 1,
+//         "问题": "下列关于证券公司及其人员违反合规管理规定的监管措施的说法，错误的是 ( )｡",
+//         "选项": "A. 证券公司监事未能勤勉尽责，致使公司存在重大合规风险的，依法采取行政监管措施; B. 证监会可以对证券公司违规事项中负有直接责任的高级管理人员采取责令参加培训的行政监管措施;C. 证监会根据审慎监管的原则，可以提高对行业重要性证券公司的合规管理要求，并加强合规监管;D. 对于证券公司的违法违规行为，合规负责人尽管已经按照监管要求尽职履责，但仍需承担责任",
+//         "正确答案": "D",
+//         "类型": "监管与合规"
+//     },
+//     {
+//         "编号": 2,
+//         "问题": "下列关于净资本的说法，正确的是 ( )",
+//         "选项": "A. 长期次级债存续期计入净资本的数量不变; B. 净资本和净资产的概念差不多; C. 净资本由核心净资本和附属净资本构成; D. 核心净资本比附属净资本少",
+//         "正确答案": "C",
+//         "类型": "金融业务知识"
+//     }
+// ]
+
+func ExcelToJson() []map[string]interface{} {
+	f, err := excelize.OpenFile("/Users/dingding/Documents/项目/ai-test-center/assets/excels/MAT-CN.xlsx")
+	if err != nil {
+		panic(err)
+	}
+	sheetList := f.GetSheetList()
+	var rows [][]string
+	for _, r := range sheetList {
+		fmt.Println("sheet", r)
+		row, err := f.GetRows(r)
+		if err != nil {
+			panic(err)
+		}
+		rows = append(rows, row[1:10]...)
+	}
+
+	var qaInfo []map[string]interface{}
+	fmt.Println("leng", len(rows))
+	for _, r := range rows {
+		qaInfo = append(qaInfo, map[string]interface{}{"编号": r[0], "问题": r[1], "选项": r[2], "正确答案": r[3], "类型": r[4]})
+	}
+	return qaInfo
+}

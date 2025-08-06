@@ -1,0 +1,181 @@
+definitions:
+  api.QuerExamStatusData:
+    properties:
+      examStatus:
+        type: integer
+      score:
+        type: integer
+    type: object
+  api.QueryExamRecordData:
+    type: object
+  api.QueryExamRecordResponse:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/api.QueryExamRecordData'
+        description: 返回的数据
+      error:
+        description: 错误内容
+        type: string
+      message:
+        description: 错误描述
+        type: string
+    type: object
+  api.QueryExamResultDetailData:
+    type: object
+  api.QueryExamResultDetailResponse:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/api.QueryExamResultDetailData'
+        description: 返回的数据
+      error:
+        description: 错误内容
+        type: string
+      message:
+        description: 错误描述
+        type: string
+    type: object
+  api.QueryExamStatusResponse:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/api.QuerExamStatusData'
+        description: 返回的数据
+      error:
+        description: 错误内容
+        type: string
+      message:
+        description: 错误描述
+        type: string
+    type: object
+  api.QueryNftByTokenIdData:
+    type: object
+  api.QueryNftByTokenIdResponse:
+    properties:
+      data:
+        allOf:
+        - $ref: '#/definitions/api.QueryNftByTokenIdData'
+        description: 返回的数据
+      error:
+        description: 错误内容
+        type: string
+      message:
+        description: 错误描述
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /v1/api/exam/record/query{tokenId}:
+    get:
+      consumes:
+      - application/json
+      description: query nft by NFT's id
+      parameters:
+      - description: nft's id
+        in: path
+        name: tokenId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 新导出NFT成功。NFT的导出流程会在后台自动进行
+          schema:
+            $ref: '#/definitions/api.QueryExamRecordResponse'
+        "202":
+          description: 后台服务正在创建NFT
+          schema:
+            $ref: '#/definitions/api.QueryExamRecordResponse'
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/api.QueryExamRecordResponse'
+        "404":
+          description: 传入的 token id 并没有被请求导出过
+          schema:
+            $ref: '#/definitions/api.QueryExamRecordResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.QueryExamRecordResponse'
+      summary: query nft by token id
+      tags:
+      - Query NFT by token id
+  /v1/api/exam/status/query/{examId}:
+    get:
+      consumes:
+      - application/json
+      description: query nft by NFT's id
+      parameters:
+      - description: exam's id
+        in: path
+        name: ExamId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 查询考试状态
+          schema:
+            $ref: '#/definitions/api.QueryExamStatusResponse'
+        "202":
+          description: 后台服务正在查询考试状态
+          schema:
+            $ref: '#/definitions/api.QueryExamStatusResponse'
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/api.QueryExamStatusResponse'
+        "404":
+          description: 传入的 exam id 并没有进行考试
+          schema:
+            $ref: '#/definitions/api.QueryExamStatusResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.QueryExamStatusResponse'
+      summary: query nft by token id
+      tags:
+      - Query NFT by token id
+  /v1/api/nft/{tokenId}:
+    get:
+      consumes:
+      - application/json
+      description: query nft by NFT's id
+      parameters:
+      - description: nft's id
+        in: path
+        name: tokenId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: 新导出NFT成功。NFT的导出流程会在后台自动进行
+          schema:
+            $ref: '#/definitions/api.QueryExamResultDetailResponse'
+        "202":
+          description: 后台服务正在创建NFT
+          schema:
+            $ref: '#/definitions/api.QueryExamResultDetailResponse'
+        "400":
+          description: 参数错误
+          schema:
+            $ref: '#/definitions/api.QueryExamResultDetailResponse'
+        "404":
+          description: 传入的 token id 并没有被请求导出过
+          schema:
+            $ref: '#/definitions/api.QueryExamResultDetailResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/api.QueryExamResultDetailResponse'
+      summary: query nft by token id
+      tags:
+      - Query NFT by token id
+swagger: "2.0"

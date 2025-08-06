@@ -1,0 +1,73 @@
+log:
+  development: true
+  console: true
+  level: debug
+  callerSkip: 1
+# 数据库配置
+client:
+  mysql:
+    log:
+      development: true
+      console: true
+      level: debug
+      callerSkip: 1
+    gorm:
+      schema: exam_center
+      dsn: root@tcp(127.0.0.1:3306)/exam_center?charset=utf8mb4&parseTime=True&loc=Local
+      maxIdleConns: 2
+      maxOpenConns: 10
+      maxLifetime: 3600
+      maxIdleTime: 300
+      serverVersion: 8.4.0
+      gorm:
+        skipDefaultTransaction: true
+        fullSaveAssociations: true
+        dryRun: false
+        prepareStmt: false
+        disableAutomaticPing: false
+        disableForeignKeyConstraintWhenMigrating: true
+        ignoreRelationshipsWhenMigrating: true
+        disableNestedTransaction: false
+        allowGlobalUpdate: false
+        queryFields: true
+        createBatchSize: 100
+        translateError: true
+        PropagateUnscoped: true
+      logger:
+        slowThreshold: 100ms
+        colorful: true
+        ignoreRecordNotFoundError: false
+        parameterizedQueries: false
+        logLevel: 4
+  redis:
+    addr: 127.0.0.1:6379
+    db: 0
+    dialTimeout: 10s
+  telegram:
+    apikey: xxx
+    debug: false
+    proxy: http://127.0.0.1:7890
+  jaeger:
+    log:
+      development: true
+      console: true
+      level: warn
+      callerSkip: 1
+    jaeger:
+      host: jaeger:14268
+      serviceName: desoul-nft
+      logSpans: false
+core:
+  regionQPath: "/Users/dingding/Documents/项目/ai-test-center/assets/json/"
+model:
+  deepSeekKey: DEEPSEEK_API_KEY
+  openAIKey: OPENAI_API_KEY
+  serverUrl: "http://127.0.0.1:7890"
+  detraderHashKey: "70025F77782F1C97B1681AAC0E9F8B9A842B20ED14AD38CA9"
+service:
+  host: 0.0.0.0
+  port: 8080
+  portDoc: 8081
+  cert: ./src/certs/server.crt
+  key: ./src/certs/server.key
+  caCert: ./src/certs/root.crt

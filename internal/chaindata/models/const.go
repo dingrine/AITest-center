@@ -1,0 +1,9 @@
+package models
+
+const (
+	EXAM_UNVERIFIED       = 0
+	EXAM_VERIFYING        = 1
+	EXAM_VERIFIED_SUCCESS = 2
+	EXAM_VERIFIED_FAILED  = 3
+	EXAM_VERIFIED_EXPIRED = 4
+)
