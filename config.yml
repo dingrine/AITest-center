@@ -30,6 +30,7 @@ client:
         disableNestedTransaction: false
         allowGlobalUpdate: false
         queryFields: true
+
         createBatchSize: 100
         translateError: true
         PropagateUnscoped: true
